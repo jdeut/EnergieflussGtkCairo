@@ -1,4 +1,5 @@
 #include "app.h"
+#include <stdlib.h>
 
 GObject *
 app_get_ui_element (App * app, const gchar * name)
@@ -31,6 +32,7 @@ app_init (App * app)
 {
     GError *err = NULL;
     GtkBuilder *builder;
+    GtkCssProvider *style;
 
     builder = gtk_builder_new ();
 
@@ -48,4 +50,24 @@ app_init (App * app)
     gtk_builder_connect_signals (builder, app);
 
     app->objects = gtk_builder_get_objects (builder);
+
+    style = gtk_css_provider_new();
+
+    gtk_css_provider_load_from_path(style, "./style.css", &err);
+
+    if (err != NULL) {
+        g_printerr
+            ("Error while loading app definitions file: %s\n",
+             err->message);
+        g_clear_error (&err);
+        exit (1);
+    }
+
+    GET_UI_ELEMENT(GtkWidget, mainwindow);
+
+    GdkScreen *screen;
+
+    screen = gtk_window_get_screen(GTK_WINDOW(mainwindow));
+
+    gtk_style_context_add_provider_for_screen(screen, GTK_STYLE_PROVIDER(style), GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
