@@ -25,6 +25,7 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
   <!-- interface-license-type lgplv3 -->
   <object class="GtkApplicationWindow" id="mainwindow">
     <property name="can_focus">False</property>
+    <property name="decorated">False</property>
     <signal name="destroy" handler="gtk_main_quit" swapped="no"/>
     <child>
       <object class="GtkGrid" id="grid4">
@@ -187,7 +188,7 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
             <property name="receives_default">True</property>
             <property name="halign">center</property>
             <property name="valign">start</property>
-            <signal name="activate" handler="gtk_main_quit" swapped="no"/>
+            <signal name="clicked" handler="gtk_main_quit" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">1</property>
