@@ -57,8 +57,8 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
                 <property name="height">600</property>
                 <child>
                   <object class="GtkEventBox" id="eventbox1">
-                    <property name="width_request">140</property>
-                    <property name="height_request">100</property>
+                    <property name="width_request">100</property>
+                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -90,14 +90,14 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
                     </style>
                   </object>
                   <packing>
-                    <property name="x">89</property>
-                    <property name="y">56</property>
+                    <property name="x">99</property>
+                    <property name="y">343</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkEventBox" id="eventbox2">
-                    <property name="width_request">140</property>
-                    <property name="height_request">100</property>
+                    <property name="width_request">100</property>
+                    <property name="height_request">80</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
@@ -115,7 +115,7 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
                             <property name="valign">center</property>
                             <property name="hexpand">True</property>
                             <property name="vexpand">True</property>
-                            <property name="label" translatable="yes">System 1</property>
+                            <property name="label" translatable="yes">System 2</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -129,8 +129,8 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
                     </style>
                   </object>
                   <packing>
-                    <property name="x">145</property>
-                    <property name="y">21</property>
+                    <property name="x">479</property>
+                    <property name="y">431</property>
                   </packing>
                 </child>
                 <style>

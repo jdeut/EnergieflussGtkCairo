@@ -1,4 +1,5 @@
 #include "app.h"
+#include "callbacks.h"
 
 const gint Sensitivity = 10;
 
@@ -76,6 +77,7 @@ motion_notify_event (GtkWidget * widget,
 {
     
     gint x, y;
+    gboolean ret;
 
     GET_UI_ELEMENT (GtkWidget, layout1);
 
@@ -103,6 +105,9 @@ motion_notify_event (GtkWidget * widget,
                  /*event->y);*/
         gtk_layout_move (GTK_LAYOUT (layout1), widget, x, y);
     }
+
+    gtk_widget_queue_draw(layout1);
+
     return TRUE;
 }
 
@@ -133,6 +138,8 @@ main (int argc, char *argv[])
 
     GET_UI_ELEMENT (GtkWidget, mainwindow);
     GET_UI_ELEMENT (GtkWidget, layout1);
+
+    g_signal_connect(G_OBJECT(layout1), "draw", G_CALLBACK(layout_draw_cb), app); 
 
     make_button ("eventbox1", app);
     make_button ("eventbox2", app);
