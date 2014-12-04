@@ -23,21 +23,15 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
   <requires lib="gtk+" version="3.12"/>
   <!-- interface-css-provider-path style.css -->
   <!-- interface-license-type lgplv3 -->
-  <object class="GtkWindow" id="mainwindow">
+  <object class="GtkApplicationWindow" id="mainwindow">
     <property name="can_focus">False</property>
-    <property name="default_width">640</property>
-    <property name="default_height">470</property>
     <signal name="destroy" handler="gtk_main_quit" swapped="no"/>
     <child>
-      <object class="GtkGrid" id="grid1">
+      <object class="GtkGrid" id="grid4">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_left">5</property>
-        <property name="margin_right">5</property>
-        <property name="margin_top">5</property>
-        <property name="margin_bottom">5</property>
         <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow1">
+          <object class="GtkScrolledWindow" id="scrolledwindow2">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="hexpand">True</property>
@@ -58,14 +52,14 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkGrid" id="grid2">
+                      <object class="GtkGrid" id="grid5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkLabel" id="label1">
+                          <object class="GtkLabel" id="label3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">center</property>
@@ -121,14 +115,14 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkGrid" id="grid3">
+                      <object class="GtkGrid" id="grid6">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkLabel" id="label2">
+                          <object class="GtkLabel" id="label4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">center</property>
@@ -186,16 +180,14 @@ along with .  If not, see <http://www.gnu.org/licenses/>.
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="button3">
+          <object class="GtkButton" id="button1">
             <property name="label" translatable="yes">Quit</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="halign">center</property>
             <property name="valign">start</property>
-            <property name="margin_left">10</property>
-            <property name="margin_right">10</property>
-            <signal name="clicked" handler="gtk_main_quit" swapped="no"/>
+            <signal name="activate" handler="gtk_main_quit" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">1</property>
