@@ -6,7 +6,7 @@ CFILES=$(shell find . -iname "*.c")
 OBJ=$(patsubst %.c, %.o, $(CFILES))
 
 ifneq (, $(findstring MINGW, $(SYS)))
-  LDLIBS=-L/mingw64/bin -static -lgtk-3.dll -lgdk-3.dll -lfontconfig.dll -lgdk_pixbuf-2.0.dll -lglib-2.0.dll -lgobject-2.0.dll 
+  LDLIBS=-L/mingw64/bin -static -lpango-1.0.dll -lpangocairo-1.0.dll -lcairo.dll -lgtk-3.dll -lgdk-3.dll -lfontconfig.dll -lgdk_pixbuf-2.0.dll -lglib-2.0.dll -lgobject-2.0.dll 
 else
   LDLIBS=`pkg-config --libs $(PKGS)` -lm
 endif
