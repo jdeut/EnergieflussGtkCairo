@@ -9,6 +9,7 @@ layout_draw_cb (GtkWidget * widget, cairo_t * cr, App * app)
 
     gfloat x_source, y_source, height_source, width_source;
     gfloat x_end, y_end, height_end, width_end;
+    gfloat hval, vval;
     double x0, y0, x1, y1, y_tip, x_tip;
     double arrow_tip_width, arrow_tip_length, alpha;
 
@@ -42,11 +43,12 @@ layout_draw_cb (GtkWidget * widget, cairo_t * cr, App * app)
     arrow_tip_length = 50;
     alpha = atan2f (y1 - y0, x1 - x0);
 
-    hadjustment = gtk_scrolled_window_get_hadjustment(GTK_SCROLLED_WINDOW(scrolledwindow2));
-    vadjustment = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(scrolledwindow2));
+    g_object_get (scrolledwindow2, "hadjustment",
+                  &hadjustment, "vadjustment",
+                  &vadjustment, NULL);
 
-    gfloat hval =  gtk_adjustment_get_value(hadjustment);
-    gfloat vval =  gtk_adjustment_get_value(vadjustment);
+    hval = gtk_adjustment_get_value (hadjustment);
+    vval = gtk_adjustment_get_value (vadjustment);
 
     /* *
      * Arrow tip
@@ -54,23 +56,23 @@ layout_draw_cb (GtkWidget * widget, cairo_t * cr, App * app)
     cairo_translate (cr, -hval, -vval);
     cairo_set_source_rgb (cr, 0, 1, 0);
 
-    cairo_save(cr);
+    cairo_save (cr);
 
-        cairo_translate (cr, x1, y1);
-        cairo_rotate (cr, alpha);
-        cairo_move_to (cr, 0, 0);
-        cairo_line_to (cr, -arrow_tip_length, -arrow_tip_width);
-        cairo_line_to (cr, -arrow_tip_length, arrow_tip_width);
+    cairo_translate (cr, x1, y1);
+    cairo_rotate (cr, alpha);
+    cairo_move_to (cr, 0, 0);
+    cairo_line_to (cr, -arrow_tip_length, -arrow_tip_width);
+    cairo_line_to (cr, -arrow_tip_length, arrow_tip_width);
 
-        cairo_fill (cr);
+    cairo_fill (cr);
 
     /* *
      * Connection line
      * */
 
-        cairo_move_to (cr, -arrow_tip_length / 2, 0);
+    cairo_move_to (cr, -arrow_tip_length / 2, 0);
 
-    cairo_restore(cr);
+    cairo_restore (cr);
 
 
     cairo_line_to (cr, x0, y0);
