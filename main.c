@@ -41,19 +41,15 @@ static gboolean
 button_press_event (GtkWidget * w, GdkEventButton * event,
                     App * app)
 {
-    GtkAllocation alloc_w, alloc_p;
-
     if (event->button == 1) {
-        GtkWidget *p = gtk_widget_get_parent (w);
+        GtkAllocation alloc_w, alloc_p;
+        GtkWidget *p;
 
+        p = gtk_widget_get_parent (w);
         gtk_widget_get_allocation (w, &alloc_w);
         gtk_widget_get_allocation (p, &alloc_p);
 
         // offset == distance of parent widget from edge of screen ...
-
-        gtk_widget_translate_coordinates (w, p, event->x,
-                                          event->y, &offsetx,
-                                          &offsety);
 
         // plus distance from pointer to edge of widget
         offsetx = (int) event->x;
@@ -75,15 +71,18 @@ static gboolean
 motion_notify_event (GtkWidget * widget,
                      GdkEventMotion * event, App * app)
 {
-    
+
     gint x, y;
     gboolean ret;
+    GtkAdjustment *hadjustment, *vadjustment;
+    gfloat hval, vval;
 
+    GET_UI_ELEMENT (GtkWidget, scrolledwindow2);
     GET_UI_ELEMENT (GtkWidget, layout1);
 
-    gtk_widget_translate_coordinates (widget, layout1, event->x,
-                                          event->y, &x,
-                                          &y);
+    gtk_widget_translate_coordinates (widget, layout1,
+                                      event->x, event->y, &x,
+                                      &y);
 
     x -= offsetx;
     y -= offsety;
@@ -98,15 +97,23 @@ motion_notify_event (GtkWidget * widget,
                                 Sensitivity);
 
     if (x != px || y != py) {
+        g_object_get (scrolledwindow2, "hadjustment",
+                      &hadjustment, "vadjustment",
+                      &vadjustment, NULL);
+
+        hval = gtk_adjustment_get_value (hadjustment);
+        vval = gtk_adjustment_get_value (vadjustment);
+
+        x += hval;
+        y += vval;
+
         px = x;
         py = y;
-        /*g_print ("x: %i, y: %i\n", x, y);*/
-        /*g_print ("x_event: %f, y_event: %f\n", event->x,*/
-                 /*event->y);*/
+
         gtk_layout_move (GTK_LAYOUT (layout1), widget, x, y);
     }
 
-    gtk_widget_queue_draw(layout1);
+    gtk_widget_queue_draw (layout1);
 
     return TRUE;
 }
@@ -117,7 +124,9 @@ make_button (const gchar * const name, App * app)
     GtkWidget *b =
         (GtkWidget *) app_get_ui_element (app, name);
 
-    gtk_widget_add_events (b, GDK_BUTTON_PRESS_MASK | GDK_BUTTON1_MOTION_MASK);
+    gtk_widget_add_events (b,
+                           GDK_BUTTON_PRESS_MASK |
+                           GDK_BUTTON1_MOTION_MASK);
 
     g_signal_connect (G_OBJECT (b), "button-press-event",
                       G_CALLBACK (button_press_event), app);
@@ -139,7 +148,8 @@ main (int argc, char *argv[])
     GET_UI_ELEMENT (GtkWidget, mainwindow);
     GET_UI_ELEMENT (GtkWidget, layout1);
 
-    g_signal_connect(G_OBJECT(layout1), "draw", G_CALLBACK(layout_draw_cb), app); 
+    g_signal_connect (G_OBJECT (layout1), "draw",
+                      G_CALLBACK (layout_draw_cb), app);
 
     make_button ("eventbox1", app);
     make_button ("eventbox2", app);
